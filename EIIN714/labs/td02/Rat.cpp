@@ -8,7 +8,6 @@ class Rat {
 private:
     int num;
     unsigned int denom;
-;
 
 public:
     Rat() {
@@ -23,8 +22,7 @@ public:
 
     Rat(int p, unsigned int q) {
         if (q == 0) {
-            std::cerr << "Denominator cannot be 0" << std::endl;
-            exit(1);
+            throw std::invalid_argument("Denominator cannot be 0");
         }
 
         num = p;
