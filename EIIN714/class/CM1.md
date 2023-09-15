@@ -1,4 +1,4 @@
-#
+# CM1 - Introduction à C++
 
 ## Définition de la Programmation MultiParadigmes
 
@@ -11,7 +11,9 @@ Paradigmes:
 
 La doc référente: [cppreference.com](https://en.cppreference.com/w/)
 
-### Programme Minimal
+### Flux
+
+#### Programme Minimal
 ```cpp
 #include <iostream>
 
@@ -23,7 +25,24 @@ int main() {
 }
 ```
 
-### Saisie de données
+#### Saisie de données
+
+```cpp
+#include <iostream>
+
+int main() {
+    int i;
+    int j;
+    std::cout << "Saisir un entier: ";
+    std::cin >> i >> j;
+    std::cout << "Vous avez saisi: " << i << << " et " << j << std::endl;
+    return 0;
+}
+```
+
+#### Boucle de saisie
+
+Boucle de saisie jusqu'à EOF (End Of File) (Ctrl+D sur Linux, Ctrl+Z sur Windows)
 
 ```cpp
 #include <iostream>
@@ -31,9 +50,64 @@ int main() {
 int main() {
     int i;
     std::cout << "Saisir un entier: ";
-    std::cin >> i;
-    std::cout << "Vous avez saisi: " << i << std::endl;
+    while (std::cin >> i) {
+        std::cout << "Vous avez saisi: " << i << std::endl;
+        std::cout << "Saisir un entier: ";
+    }
+}
+```
+
+#### Ecriture vers un fichier
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ofstream f("test.txt");
+    f << "Hello World!" << std::endl;
+    // f.close(); // Not needed as the destructor will close the file
     return 0;
 }
 ```
 
+#### Lecture depuis un fichier
+
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ifstream f("test.txt");
+    std::string s;
+    f >> s;
+    std::cout << s << std::endl;
+    // f.close(); // Not needed as the destructor will close the file
+    return 0;
+}
+```
+
+### Les types
+
+Entiers: `int`
+
+Charactères: `char`
+
+Booléens: `bool`
+
+Flottants: `float`, `double`
+
+Vecteurs: `std::vector`
+
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> v(10); // Vecteur de 10 entiers
+
+    v.push_back(1); // Ajoute un élément à la fin du vecteur
+}
+```
+
+Chaines de caractères: `std::string`

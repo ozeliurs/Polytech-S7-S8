@@ -1,4 +1,4 @@
-# azdaz
+# Introduction au C++
 
 ## Evaluation
 
@@ -20,4 +20,4 @@ Pour envoyer un TD:
 
 ## Cours
 
-- [Cours 1](class/CM1.md)
+- [Introduction à C++](class/CM1.md)
