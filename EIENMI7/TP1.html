@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+
+
+
+
+
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux 2.2.18 i686) [Netscape]">
+   <meta name="Keywords" content="Cours WS">
+   <meta name="Author" content="Francoise Baude">
+   <meta name="Description" content="Acces au cours de Prog Repartie par OO Distribues"><title>Applications R&eacute;parties - objets distribu&eacute;s - TP1 </title>
+<base href="http://www-sop.inria.fr/oasis/Francoise.Baude/AppRep/TP1">
+<body alink="#009900" bgcolor="#f5f4f5" link="#0000ff" text="#666666" vlink="#7642a9">
+&nbsp;
+<br>
+
+<br>&nbsp;
+<center>
+<h3>
+<b><i><font face="Arial,Helvetica"><font color="#440099">
+
+Applications R&eacute;parties - Partie II: approche client/serveur par objets distribu&eacute;s
+ 
+</font></font></i></b></h3></center>
+
+<center><b><i><font face="Arial,Helvetica"><font color="#ff99ff">Cours Polytech'Nice, SI4, 2010-2011 and onwards
+
+</font></font></i></b></center>
+
+<center>
+<h3>
+<h2><b><i><font face="Arial,Helvetica"><font color="#440099">Sujet de TP1</font></font></i></b></h2>
+</center>
+
+<p>Objective/Content:
+</p><ul>
+<li>Your first usage of Java RMI </li>
+</ul>
+<p></p><hr width="100%">
+
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 16.0px Times"><b>1. The remote object</b></h3>
+<p class="p3">The first step consists in writing a remote interface and the object that implements it</p>
+<ol class="ol1">
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Write a remote interface named <i>Distante</i>, having a method named <i>echo</i> without call parameters and without a return value </li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Implement this  interface in an object <i>ObjetDistant </i>(makes echo prints a message on the standard output)</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Add a main method <i>main</i> to the object, or to an other standard Java object, so to instantiate a remote object and register it in a rmiregistry (on the LMS, you can find a mini tutorial to help you)</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Compile all these classes and make sure the compiled files are stored in the right directory </li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">You do not need to generate a stub by hand (using rmic), because it is automatically done if the Java version, the JDK is >= JDK 1.5</li>
+</ol>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 16.0px Times"><b>2. The client</b></h3>
+<p class="p3">To give the client code, it is necessary to only know the remote interface defintion. So, in the client code, you must only use the type <i>Distante</i> et never the type <i>ObjetDistant</i></p>
+<ol class="ol1">
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Create a class  named Client having a  <i>main</i> method that lookups for an RMI reference of
+  the remote object in the rmiregistry.</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Write the code that will call the method exposed by the remote object</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Compile your class</li>
+</ol>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 16.0px Times"><b>3. Local execution</b></h3>
+<p class="p3">We will test this small RMI application. To simplify things, all
+  entities will run on a single host (your local machine). Open three terminal/consoles to do the following operations, and in each shell, you must change directory so your shell
+  is positioned in the folder that contains the .class files (be careful with the possible existence of any package  your .class files belong to) or, make the 
+  tests from the IDE if you prefer after you have understood what happens: <span class="Apple-converted-space"> </span></p>
+<ol class="ol1">
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Start an <i>rmiregistry</i></li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Start your remote object / server side program</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Start one client</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">In which
+   terminal/console is printed the message ? Explain</li>
+</ol>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 16.0px Times"><b>4. Study of the communication</b></h3>
+<p class="p3">RMI communications are qualified as being synchronous, this is what this exercise will exhibit.</p>
+<ol class="ol1">
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">In the method  <i>echo</i> implemented by the remote object, add a sleep period (<i>Thread.sleep(...))</i>.</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">At the client-side, print a message on the standard ouput just before invoking  <i>echo</i> and just after this call</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Execute, what do you notice ? Explain</li>
+</ol>
+
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 16.0px Times"><b>5. Simplified execution in a distributed setting</b></h3>
+<p class="p3">We are going to test this small RMI application using two different hosts.  We make the assumption that these machines can freely communicate  (they are on the same network) and that Java installation (same JDK version preferably) is available on both machines. We will use the local machine for the client part, and another machine for the server-side (for instance your neighbour in the classroom).  </p>
+<ol class="ol1">
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Transform the "localhost" value used so far with the name of the host where the rmiregistry will run, as the server-side. 
+<li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">
+Then, we will separate our classes in two sets: classes useful at server-side, those only useful at client-side, meaning some .class files may be duplicated. Transf&eacute;r to the remote machine the source files needed at server-side.  </li>
+
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Compile classes transferred on the server-side machine</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Change directory so to be able to start the rmiregistry on the server host with the right classpath. (What is a correct classpath here ?) </li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Start the client code  locally: thanks to the lookup into the registry running on the remote host, the stub object will arrive at client side, in a serialized form. It will be deserialized by applying a dynamically generated class for this stub instance, at the client-side JVM. 
+
+<p style='margin-left:36.0pt'><span style='font-size:10.0pt;mso-bidi-font-size:
+9.0pt;font-family:"Times",serif'>If the IP address resolution does not work as expected (that is, the IP address indicated in the stub is localhost and not the IP  where the server runs, you can solve the problem by requesting the JVM that has created the stub to run with the following JVM property  </span><span
+class=GramE><span style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:
+"Times",serif;color:red'>-<span class=SpellE>Djava.rmi.server.hostname</span></span></span><span
+style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+color:red'>=<span class=SpellE>xxx.xxx.xxx.xxx</span></span><span
+style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif'><o:p></o:p></span>
+  </li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Now, stop the server side and registry programs. On the server machine, change directory to one where there is no chance a new launched rmiregistry will have access to the .class of your RMI server-side application. Change again the directory to go back in the folder that has access to the .class of the server-side application. Start now the server-side. You will get an exception, that you now need to analyse in detail (one trace is provided below in the case you could not experiment successfully: in this example, the server implements a remote interface whose name is not Distante, but HellowWorld). Explain what this exception means, and which JVM has created this error message.  
+<p>
+<blockquote style='margin-top:5.0pt;margin-bottom:5.0pt'>
+
+<p class=MsoNormal style='margin-left:36.0pt'><span style='font-size:10.0pt;
+mso-bidi-font-size:9.0pt;font-family:"Times",serif;mso-fareast-font-family:
+"Times New Roman";color:#00B0F0'>[<span class=SpellE>fbaude@bego</span>]~/Cours/<span
+class=SpellE>AppRep</span>/<span class=SpellE>HelloWorld</span>% </span><span
+style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+mso-fareast-font-family:"Times New Roman"'>The RMI <span class=SpellE>naming</span>
+service <span class=SpellE>is</span> <span class=SpellE>listening</span> at
+2001<br>
+</span><span style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+mso-fareast-font-family:"Times New Roman";color:#ED7D31;mso-themecolor:accent2'>cd
+bin</span><span style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:
+"Times",serif;mso-fareast-font-family:"Times New Roman"'><br>
+</span><span style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+mso-fareast-font-family:"Times New Roman";color:#00B0F0'>[<span class=SpellE>fbaude@bego</span>]~/Cours/<span
+class=SpellE>AppRep</span>/<span class=SpellE>HelloWorld</span>/bin% </span><span
+style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+mso-fareast-font-family:"Times New Roman";color:#ED7D31;mso-themecolor:accent2'>java
+<span class=SpellE>HelloWorldServer</span></span><span style='font-size:10.0pt;
+mso-bidi-font-size:9.0pt;font-family:"Times",serif;mso-fareast-font-family:
+"Times New Roman"'><br>
+<span class=SpellE>Creation</span> de l'objet serveur<br>
+<span class=SpellE>Referencement</span> dans le <span class=SpellE>registry</span>..<br>
+On a l'<span class=SpellE>acces</span> au <span class=SpellE>registry</span> <span
+class=SpellE>ecoutant</span> sur 2001<br>
+<span class=SpellE>java.rmi.UnexpectedException</span>: <span class=SpellE>undeclared</span>
+<span class=SpellE>checked</span> exception; <span class=SpellE>nested</span>
+exception <span class=SpellE>is</span>:<br>
+<span class=SpellE><b>java.lang.ClassNotFoundException</b></span><b>: <span
+class=SpellE>HelloWorld</span> not <span class=SpellE>found</span> </b>in <span
+class=SpellE>gnu.gcj.runtime.SystemClassLoader</span>{<span class=SpellE>urls</span>=[file:./],
+parent=<span class=SpellE>gnu.gcj.runtime.ExtensionClassLoader</span>{<span
+class=SpellE>urls</span>=[], parent=<span class=SpellE>null</span>}}<br>
+at <span class=SpellE>gnu.java.rmi.registry.RegistryImpl_Stub.rebind</span>(libgcj.so.8rh)<br>
+at <span class=SpellE>HelloWorldServer.main</span>(HelloWorldServer.java:23)<br>
+<span class=SpellE>Caused</span> by: <span class=SpellE>java.lang.ClassNotFoundException</span>:
+<span class=SpellE>HelloWorld</span> not <span class=SpellE>found</span> in <span
+class=SpellE>gnu.gcj.runtime.SystemClassLoader</span>{<span class=SpellE>urls</span>=[file:./],
+parent=<span class=SpellE>gnu.gcj.runtime.ExtensionClassLoader</span>{<span
+class=SpellE>urls</span>=[], parent=<span class=SpellE>null</span>}}<o:p></o:p></span></p>
+
+</blockquote>
+<p style='margin-left:36.0pt'><span class=GramE><b style='mso-bidi-font-weight:
+normal'><span style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:
+"Times",serif'>Explanation</span></b><span style='font-size:10.0pt;mso-bidi-font-size:
+9.0pt;font-family:"Times",serif'>:</span></span><span style='font-size:10.0pt;
+mso-bidi-font-size:9.0pt;font-family:"Times",serif'> The <span class=SpellE>rmi</span>
+<span class=SpellE>registry</span> complains at the (re)<span class=SpellE>bind</span>,
+that it does not succeed to load the .class from its classpath, this class describing the interface that <span
+class=SpellE>extends</span> <span class=SpellE>Remote</span>, and from which it could automatically generate the bytecode stub class<o:p></o:p></span></p>
+
+</p>
+</li>
+</ol>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 16.0px Times"><b>6. Explicit generation of stub and skeleton classes (optional exercise)</b></h3>
+<p class="p3">Long time ago, before Java version 2, classes corresponding to stub objects had to be created in advance, and the skeleton class was mandatory. It is instructive to provoke an explicit and manual creation of them, for pedagogical purposes. </p>
+<ol class="ol1">
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">After having got documentation about the <i>rmic</i> binary command, installed in the bin of the JDK installation, apply it to your case. What is the class name to pass to rmic ? At minimum, you must test  the option v1.2, and the  option v1.1 if it stills is available. This should run on the server machine, and, at least if you do not have access to two different hosts, this should run in a case where you have explicitly separated classes into a set for the server-side, and a set for the client-side.</li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">At the client-side, are these additional .class files known ? Launch the client (on the other host): explain why you obtain an exception of type ClassNotFoundException ? What class is not found ? We will study in future labs how to solve that problem, but an easy solution consists in copying manually the needed .class files to the client-side host (or, to the client-side directory).  Once copied, test again  (this time, everything sould work well) 
+
+
+</li>
+</ol>
+<p style='margin-left:36.0pt'><b style='mso-bidi-font-weight:
+normal'><span style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:
+"Times",serif'>Explanation</span></b> When <span
+class=SpellE>rmiregistry</span> runs the binding operation, it realizes it does not possess  in any path indicated in its CLASSPATH a  .class file corresponding to the stub class; it learns that it should use that class from the information in the serialization stream corresponding to the stub object: in this stream, it is written that the object is instance of a specific class (the stub class). 
+Consequently, if this .class is found in the classpath, it will be loaded by the rmiRegistry class loader; otherwise, this exception is raised. <o:p></o:p></span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 16.0px Times"><b>7. Parameters passing </b></h3>
+<p class="p3">Methods of the Remote interface must be able to take and return some parameters...</p>
+<ol class="ol1">
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Add to the remote interface one method that takes an int as parameter, and returns an object of a class that you will define, named for instance Resultat. Do not forget to override the toString() method in this class. Complete all needed code, and use this newly added method  in the client-side code. </li>
+  <li style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">To avoid having classes missing, ensure that the directory at client-side has access to Resultat.class. Test. 
+It may be possible that you get trace and this exception at client-side: 
+<p>
+<blockquote style='margin-top:5.0pt;margin-bottom:5.0pt'>
+
+<p class=MsoNormal style='margin-left:36.0pt'><span style='font-size:10.0pt;
+mso-bidi-font-size:9.0pt;font-family:"Times",serif;mso-fareast-font-family:
+"Times New Roman"'>On va maintenant <span class=SpellE>declencher</span>
+l'appel de la <span class=SpellE>methode</span> distante </span><span
+class=SpellE><span style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:
+"Times",serif;mso-fareast-font-family:"Times New Roman";color:#ED7D31;
+mso-themecolor:accent2'>sayResultat</span></span><span style='font-size:10.0pt;
+mso-bidi-font-size:9.0pt;font-family:"Times",serif;mso-fareast-font-family:
+"Times New Roman"'> renvoyant un objet <span class=SpellE>Resultat</span>. <br>
+</span><span class=SpellE><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US'>java.rmi.UnmarshalException</span></b></span><span
+lang=EN-US style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+mso-fareast-font-family:"Times New Roman";mso-ansi-language:EN-US'>: error
+unmarshalling return; nested exception is:<br>
+<span class=SpellE><b style='mso-bidi-font-weight:normal'>java.io.InvalidClassException</b></span><b
+style='mso-bidi-font-weight:normal'>: <span class=SpellE>Resultat</span></b>; <span
+class=SpellE><b style='mso-bidi-font-weight:normal'>Resultat</b></span><b
+style='mso-bidi-font-weight:normal'>; class invalid for deserialization</b><br>
+at <span class=SpellE>sun.rmi.server.UnicastRef.invoke</span>(Unknown Source)<br>
+at java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(Unknown
+Source)<br>
+at <span class=SpellE>java.rmi.server.RemoteObjectInvocationHandler.invoke</span>(Unknown
+Source)<br>
+at $Proxy0.sayResultat(Unknown Source) <b>// <span class=SpellE>sayResultat</span>
+<span class=SpellE>est</span> le nom de la <span class=SpellE>méthode</span>
+Remote <span class=SpellE>utilisé</span> par mon <span class=SpellE>HelloWorldClient</span></b><br>
+at <span class=SpellE>HelloWorldClient.main</span>(HelloWorldClient.java:36)<br>
+Caused by: <span class=SpellE><b>java.io.InvalidClassException</b></span><b>: <span
+class=SpellE>Resultat</span>; <span class=SpellE>Resultat</span>; class invalid
+for deserialization</b><br>
+at <span class=SpellE>java.io.ObjectStreamClass.checkDeserialize</span>(Unknown
+Source)<br>
+at <span class=SpellE>java.io.ObjectInputStream.readOrdinaryObject</span>(Unknown
+Source) <o:p></o:p></span></p>
+
+</blockquote>
+</p>
+Indeed, remember that the remote object will try to send back to the client JVM a serialized copy of the returned value, of type Resultat. For this to work, the returned object should have been serialized as a byte array, to pass on the network wire, then re-instancied in the JVM that receives this bytes stream. To do this, the class that this returned object is instance of must be tagged as Serializable. If it is not yet the case, add this marker to Resultat, recompile and test again.
+
+</span></p>
+</li>
+</ol>
+<h3 style='margin-top:0cm;margin-right:0cm;margin-bottom:10.5pt;margin-left:
+0cm'><span style='font-size:12.0pt;font-family:"Times",serif;mso-fareast-font-family:
+"Times New Roman"'>8. <span class=SpellE>Serialization</span> (<span
+class=GramE>reminders ?</span>)<o:p></o:p></span></h3>
+
+<p class=p3>Java RMI intensively uses serialization. A reminder is needed!
+!<o:p></o:p></p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list 36.0pt'><span
+     style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+     mso-fareast-font-family:"Times New Roman"'>Take again Resultat class
+     (which is  <span class=SpellE>serializable</span>). In the constructor, print a message to show the constructor has been invoked. Add an attribute of type String to describe for example the credetentials of a user wishing to pay using its bank credit card «&nbsp;<span
+     class=SpellE>InfoCB</span>&nbsp;» (Identity of the holder, followed by numbers)
+     declaring it as <i style='mso-bidi-font-style:normal'>transient</i> (the effect of transient  is that this attribute value will not be copyied during serialization).
+     To convience yourself about that, launch again the RMI application and check that this attribute has only the bydefault value corresponding to its type (the value has not been serialized).<o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list 36.0pt'><span
+     style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+     mso-fareast-font-family:"Times New Roman"'>Turn this attribute <span class=SpellE>InfoCB</span>  as <span class=SpellE>private</span>, and
+     add to it two methods, a getter and
+     a <span class=GramE>setter .</span> Put the attribute as  <b style='mso-bidi-font-weight:
+     normal'>non</b>  transient <o:p></o:p></span> for the rest of this exercise. </li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list 36.0pt'><span
+     style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+     mso-fareast-font-family:"Times New Roman"'>Create a sub class of <span
+     class=SpellE>Resultat</span>. <span class=SpellE>It will be  </span>  <span
+     class=SpellE><i style='mso-bidi-font-style:normal'>Serializable</i></span>
+     by inheritance. Add an attribute (<span class=SpellE>int</span>) that may 
+     correspond  to the   PIN code, that you will initialize in the constructor. <span
+     style='mso-spacerun:yes'> </span><o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list 36.0pt'><span
+     style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+     mso-fareast-font-family:"Times New Roman"'>Also add two methods that will redefine the inherited   getter and  setter methots for attribute <span class=SpellE>InfoCB</span>.
+     The idea is to simulate in this pair of methods an encryption / decryption  for
+     <span class=SpellE>InfoCB</span>&nbsp;: to simulate the encoding, the setter
+     applies a transformation that turn the value of   <span class=SpellE>InfoCB</span> in capital letters: it thus 
+     modify the initial value of the attribute <span class=SpellE>InfoCB</span>&nbsp;;
+     to simulate the decoding, the redefined getter method gets the value,  and transform it in lowercase letters to which it concatenates the  <span
+     class=SpellE>codePIN</span> (doing this way, the client has all information that allows him to buy something). <span
+     style='mso-spacerun:yes'> </span><span style='mso-spacerun:yes'> </span><br>
+     Redefine <span class=SpellE><span class=GramE>toString</span></span><span
+     class=GramE>(</span>) in the sub class (which will have also to call <span class=SpellE>super.toString</span>() of the parent class)
+     so to well follow what are the brute (initial)  values of attributes
+     <span class=SpellE>InfoCB</span> and code PIN of an instance of the sub class  of <span class=SpellE>Resultat</span>. <o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list 36.0pt'><span
+     style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+     mso-fareast-font-family:"Times New Roman"'>Make sure that the implementation (but not the  <span class=SpellE>Remote</span> interface implemented)  of the 
+     server-side remote object returns an object that is a sub-class of 
+       <span class=SpellE>Resultat</span> and not of the class Resultat. <span
+     style='mso-spacerun:yes'> </span>Just before returning back this result, so, outside of the constructor, modify the value of <span class=SpellE>CodePIN</span>.
+     <span class=SpellE>Ask yourself the following</span>&nbsp;: what are the values of   <span class=SpellE>InfoCB</span> and <span class=SpellE>codePIN</span> that are transmitted on the wire ?<o:p></o:p></span></li>
+ <li class=MsoNormal style='mso-list:l0 level1 lfo9;tab-stops:list 36.0pt'><span
+     style='font-size:10.0pt;mso-bidi-font-size:9.0pt;font-family:"Times",serif;
+     mso-fareast-font-family:"Times New Roman"'>If needed, copy  these modified .class on the client-side host, and launch the RMI application (do not forget to launch the  <span
+     class=SpellE>rmiregistry</span>). Thanks to the invocation of method <span class=SpellE><span
+     class=GramE>toString</span></span><span class=GramE>(</span>), check the received values are those you expected: those that are sent from server side. Note precisely also when the various constructors of your 2 classes are (automatically) invoked during the serialization & deserialization processes.<o:p></o:p></span></li>
+</ol>
+<p style='margin-left:36.0pt'><b>Take away message</b> The <u>deserialization</u> mechanism does not use constructor(s)
+ for classes that are <span class=SpellE><i
+style='mso-bidi-font-style:normal'>Serializable</i></span>. It only bases upon the 
+received values from the stream, so to initialize the attributes of the object
+created by the deserialization process, except for the  <i
+style='mso-bidi-font-style:normal'>transient</i> attributes. <br>
+The principles of polymorphism and inheritance of Java are relevant to transparently implement new behaviours (here, the main client code receives credit card  information, but does not need to be aware they are encoded when it receives
+them, because there is a transparent decoding operation that first took place.   This new behaviour that encodes / decodes is transparent to the main client code). Still, it only works if the client JVM has access to the extended classes bytecode files, so to be able to use them during the deserialization process.  The next lab will address this need.<o:p></o:p></p>
+
+
+
+<p></p><hr width="100%">
+<br><p style="margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times">Page maintenue par Francoise Baude @2011-</p>
+
+
+
+</body></html>
