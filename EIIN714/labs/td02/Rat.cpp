@@ -3,6 +3,15 @@
 //
 
 #include <fstream>
+#include <iostream>
+
+int pgcd(int a, int b) {
+    if (b == 0) {
+        return a;
+    }
+
+    return pgcd(b, a % b);
+}
 
 class Rat {
 private:
@@ -10,23 +19,19 @@ private:
     unsigned int denom;
 
 public:
-    Rat() {
-        num = 0;
-        denom = 1;
-    }
+    Rat() : Rat(0, 1) {}
 
-    Rat(int n) {
-        num = n;
-        denom = 1;
-    }
+    Rat(int n) : Rat(n, 1) {}
 
     Rat(int p, unsigned int q) {
         if (q == 0) {
             throw std::invalid_argument("Denominator cannot be 0");
         }
 
-        num = p;
-        denom = q;
+        int gcd = pgcd(p, q);
+
+        num = p / gcd;
+        denom = q / gcd;
     }
 
     int getNum() const {
@@ -122,6 +127,69 @@ bool operator>(const Rat &r1, const Rat &r2) {
 // greater than or equal operator overloading
 bool operator>=(const Rat &r1, const Rat &r2) {
     return !(r1 < r2);
+}
+
+int main() {
+    Rat r1(1, 2);
+    Rat r2(3, 4);
+
+    // Empty constructor
+    Rat r3;
+    std::cout << r3 << std::endl;
+
+    // Constructor with one parameter
+    Rat r4(1);
+    std::cout << r4 << std::endl;
+
+    // << operator overloading
+    std::cout << r1 << std::endl;
+
+    // >> operator overloading
+    // std::cin >> r1;
+
+    // addition operator overloading
+    std::cout << (r1 + r2) << std::endl;
+
+    // subtraction operator overloading
+    std::cout << (r1 - r2) << std::endl;
+
+    // increment operator overloading
+    std::cout << ++r1 << std::endl;
+
+    // decrement operator overloading
+    std::cout << --r1 << std::endl;
+
+    // multiplication operator overloading
+    std::cout << (r1 * r2) << std::endl;
+
+    // division operator overloading
+    std::cout << (r1 / r2) << std::endl;
+
+    // opposite operator overloading
+    std::cout << -r1 << std::endl;
+
+    // inverse operator overloading
+    std::cout << !r1 << std::endl;
+
+    // equality operator overloading
+    std::cout << (r1 == r2) << std::endl;
+
+    // inequality operator overloading
+    std::cout << (r1 != r2) << std::endl;
+
+    // less than operator overloading
+    std::cout << (r1 < r2) << std::endl;
+
+    // less than or equal operator overloading
+    std::cout << (r1 <= r2) << std::endl;
+
+    // greater than operator overloading
+    std::cout << (r1 > r2) << std::endl;
+
+    // greater than or equal operator overloading
+    std::cout << (r1 >= r2) << std::endl;
+
+    return 0;
 }
 
 
