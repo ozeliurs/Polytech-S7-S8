@@ -9,8 +9,7 @@
 #include "common_defs.h"
 #include "date.h"
 
-int main()
-{
+int main() {
     Date d0; // default initialization (eg your bith date)
 
     MSG(Default Constructors and Display);
@@ -41,11 +40,11 @@ int main()
     OUT(d3 - 365);
 
 
-	cout << (d0 += 2);
-	cout << d0;
+    cout << (d0 += 2);
+    cout << d0;
 
-	cout << (d0 -= 2);
-	cout << d0;
+    cout << (d0 -= 2);
+    cout << d0;
 
     MSG(Relational operators);
     OUT(Date(2004, 3, 20) == Date(2004, 12, 8));
@@ -71,25 +70,22 @@ int main()
     Date din;
     cout << "Enter a date (yyyy/mm/dd, terminate with EOF): " << flush;
 
-	while (cin >> din) 
-	{
-		OUT(din);
-		cout << "Enter a date (yyyy/mm/dd, terminate with EOF): " << flush;
-	}
+    cin >> din;
+    OUT(din);
 
-	// side effect operator
-	cout << d0++;
-	cout << d0;
-	cout << ++d0;
-	cout << d0;
+    // side effect operator
+    cout << d0++ << endl;
+    cout << d0 << endl;
+    cout << ++d0 << endl;
+    cout << d0 << endl;
 
-	cout << d0--;
-	cout << d0;
-	cout << --d0;
-	cout << d0;
+    cout << d0-- << endl;
+    cout << d0 << endl;
+    cout << --d0 << endl;
+    cout << d0 << endl;
 
-	// Conversion constructor
-	cout << Date(1492992000);	// convert number of seconds since Jan 1. 1970 0h00 to Date. HINT: use localtime()
-	cout << (din == 1492992000);	// Does is it work ? Why ?
-	cout << (1492992000 == din);	// Does is it work ? Why ?
+    // Conversion constructor
+    cout << Date(1492992000) << endl;    // convert number of seconds since Jan 1. 1970 0h00 to Date. HINT: use localtime()
+    cout << (din == 1492992000) << endl;    // Does is it work ? Why ?
+    // cout << (1492992000 == din);	// Does is it work ? Why ?
 }

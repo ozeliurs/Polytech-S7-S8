@@ -30,6 +30,8 @@ public:
 
         int gcd = pgcd(p, q);
 
+        gcd = gcd < 0 ? -gcd : gcd;
+
         num = p / gcd;
         denom = q / gcd;
     }
@@ -64,9 +66,14 @@ Rat operator+(const Rat &r1, const Rat &r2) {
     return Rat(r1.getNum() * r2.getDenom() + r2.getNum() * r1.getDenom(), r1.getDenom() * r2.getDenom());
 }
 
+// opposite operator overloading
+Rat operator-(const Rat &r) {
+    return Rat(-r.getNum(), r.getDenom());
+}
+
 // subtraction operator overloading
 Rat operator-(const Rat &r1, const Rat &r2) {
-    return Rat(r1.getNum() * r2.getDenom() - r2.getNum() * r1.getDenom(), r1.getDenom() * r2.getDenom());
+    return r1 + (-r2);
 }
 
 // increment operator overloading
@@ -87,11 +94,6 @@ Rat operator*(const Rat &r1, const Rat &r2) {
 // division operator overloading
 Rat operator/(const Rat &r1, const Rat &r2) {
     return Rat(r1.getNum() * r2.getDenom(), r1.getDenom() * r2.getNum());
-}
-
-// opposite operator overloading
-Rat operator-(const Rat &r) {
-    return Rat(-r.getNum(), r.getDenom());
 }
 
 // inverse operator overloading
@@ -135,59 +137,59 @@ int main() {
 
     // Empty constructor
     Rat r3;
-    std::cout << r3 << std::endl;
+    std::cout << "Rat() = " << r3 << std::endl;
 
     // Constructor with one parameter
     Rat r4(1);
-    std::cout << r4 << std::endl;
+    std::cout << "Rat(int) = " << r4 << std::endl;
 
     // << operator overloading
-    std::cout << r1 << std::endl;
+    std::cout << "1/2 = " << r1 << std::endl;
 
     // >> operator overloading
     // std::cin >> r1;
 
     // addition operator overloading
-    std::cout << (r1 + r2) << std::endl;
+    std::cout << "r1 + r2 = " << (r1 + r2) << std::endl;
 
     // subtraction operator overloading
-    std::cout << (r1 - r2) << std::endl;
+    std::cout << "r1 - r2 = " << (r1 - r2) << std::endl;
 
     // increment operator overloading
-    std::cout << ++r1 << std::endl;
+    std::cout << "++r1 = " << ++r1 << std::endl;
 
     // decrement operator overloading
-    std::cout << --r1 << std::endl;
+    std::cout << "--r1 = " << --r1 << std::endl;
 
     // multiplication operator overloading
-    std::cout << (r1 * r2) << std::endl;
+    std::cout << "r1 * r2 = " << (r1 * r2) << std::endl;
 
     // division operator overloading
-    std::cout << (r1 / r2) << std::endl;
+    std::cout << "r1 / r2 = " << (r1 / r2) << std::endl;
 
     // opposite operator overloading
-    std::cout << -r1 << std::endl;
+    std::cout << "-r1 = " << -r1 << std::endl;
 
     // inverse operator overloading
-    std::cout << !r1 << std::endl;
+    std::cout << "!r1 = " << !r1 << std::endl;
 
     // equality operator overloading
-    std::cout << (r1 == r2) << std::endl;
+    std::cout << "r1 == r2 = " << ((r1 == r2) == 0 ? "false" : "true") << std::endl;
 
     // inequality operator overloading
-    std::cout << (r1 != r2) << std::endl;
+    std::cout << "r1 != r2 = " << ((r1 != r2) == 0 ? "false" : "true") << std::endl;
 
     // less than operator overloading
-    std::cout << (r1 < r2) << std::endl;
+    std::cout << "r1 < r2 = " << ((r1 < r2) == 0 ? "false" : "true") << std::endl;
 
     // less than or equal operator overloading
-    std::cout << (r1 <= r2) << std::endl;
+    std::cout << "r1 <= r2 = " << ((r1 <= r2) == 0 ? "false" : "true") << std::endl;
 
     // greater than operator overloading
-    std::cout << (r1 > r2) << std::endl;
+    std::cout << "r1 > r2 = " << ((r1 > r2) == 0 ? "false" : "true") << std::endl;
 
     // greater than or equal operator overloading
-    std::cout << (r1 >= r2) << std::endl;
+    std::cout << "r1 >= r2 = " << ((r1 >= r2) == 0 ? "false" : "true") << std::endl;
 
     return 0;
 }
