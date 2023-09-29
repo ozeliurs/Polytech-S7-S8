@@ -18,6 +18,14 @@ Pour envoyer un TD:
 - Vérifier la compilation : `Linux` + `g++` + `-W -Wall`
 - Envoyer avant la fin de la scéance de TD.
 
-## Cours
+## Class
 
 - [Introduction à C++](class/CM1.md)
+- [Les Classes](class/CM2.md)
+- [Compilation Séparée](class/CM3.md)
+
+## Labs
+
+- [La STL](labs/td01/)
+- [La classe Rat](labs/td02/)
+- [La classe Date](labs/td03/)
