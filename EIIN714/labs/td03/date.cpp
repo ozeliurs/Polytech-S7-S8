@@ -5,6 +5,38 @@
 #include "date.h"
 #include <ctime>
 
+// HELPERS
+
+bool isLeapYear(int year) {
+    return year % 4 == 0;
+}
+
+int day_count(int month, int year) {
+    switch (month % 12) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 0:
+            return 31;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            return 30;
+        case 2:
+            if (isLeapYear(year)) {
+                return 29;
+            } else {
+                return 28;
+            }
+    }
+}
+
+// CLASS
+
 Date::Date() : day(1), month(1), year(1970) {}
 
 Date::Date(long timestamp) {
@@ -17,110 +49,17 @@ Date::Date(long timestamp) {
     this->year = 1900 + localTimeInfo->tm_year;
 }
 
-Date::Date(int day, int month, int year) : day(day), month(month), year(year) {}
+Date::Date(int year, int month, int day) : day(day), month(month), year(year) {}
 
 Date Date::operator+(int days) {
-    Date d = *this;
-    
-    while (days >= 0) {
-        switch (d.month) {
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                if (days > 31) {
-                    d.month++;
-                    days -= 31;
-                } else {
-                    d.day += days;
-                    days = 0;
-                }
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                if (days > 30) {
-                    d.month++;
-                    days -= 30;
-                } else {
-                    d.day += days;
-                    days = 0;
-                }
-                break;
-            case 2:
-                if (days > 28) {
-                    d.month++;
-                    days -= 28;
-                } else {
-                    d.day += days;
-                    days = 0;
-                }
-                break;
-            
-        }
+    while (days > 0) {
+        ++*this;
+        days--;
     }
 
-    while (days <= 0) {
-        switch (d.month) {
-            case 1:
-            case 2:
-                if (days < 0) {
-                    d.month--;
-                    days += 31;
-                } else {
-                    d.day -= days;
-                    days = 0;
-                }
-                break;
-            case 3:
-                if (days < 0) {
-                    d.month--;
-                    days += 28;
-                } else {
-                    d.day -= days;
-                    days = 0;
-                }
-                break;
-            case 4:
-            case 6:
-            case 8:
-            case 9:
-            case 11:
-                if (days < 0) {
-                    d.month--;
-                    days += 31;
-                } else {
-                    d.day -= days;
-                    days = 0;
-                }
-                break;
-            case 5:
-            case 7:
-            case 10:
-            case 12:
-                if (days < 0) {
-                    d.month--;
-                    days += 30;
-                } else {
-                    d.day -= days;
-                    days = 0;
-                }
-                break;
-        }
-    }
-
-    while (d.month > 12) {
-        d.year++;
-        d.month -= 12;
-    }
-
-    while (d.month < 1) {
-        d.year--;
-        d.month += 12;
+    while (days < 0) {
+        --*this;
+        days++;
     }
 
     return *this;
@@ -128,6 +67,7 @@ Date Date::operator+(int days) {
 
 Date Date::operator-(int days) {
     this + (-days);
+    return *this;
 }
 
 Date Date::operator+=(int days) {
@@ -141,6 +81,7 @@ Date Date::operator-=(int days) {
 }
 
 bool Date::operator==(const Date &date) const {
+    // std::cout << "Comparing " << *this << " and " << date << std::endl;
     return this->day == date.day && this->month == date.month && this->year == date.year;
 }
 
@@ -149,7 +90,7 @@ bool Date::operator!=(const Date &date) const {
 }
 
 bool Date::operator<(const Date &date) const {
-    return this->day < date.day && this->month < date.month && this->year < date.year;
+    return this->year * 10000 + this->month * 100 + this->day < date.year * 10000 + date.month * 100 + date.day;
 }
 
 bool Date::operator<=(const Date &date) const {
@@ -164,34 +105,70 @@ bool Date::operator>=(const Date &date) const {
     return !(*this < date);
 }
 
-Date Date::operator-(const Date &date) const {
-    Date d;
-    d.day = this->day - date.day;
-    d.month = this->month - date.month;
-    d.year = this->year - date.year;
-    return d;
+int Date::operator-(const Date &date) const {
+    // Return the number of days between two dates
+    Date d1 = *this;
+    Date d2 = date;
+    int days = 0;
+
+    if (d1 < d2) {
+        std::cout << d1 << " < " << d2 << std::endl;
+        while (d1 != d2) {
+            ++d1;
+            days++;
+        }
+    } else {
+        std::cout << d1 << " > " << d2 << std::endl;
+        while (d1 != d2) {
+            --d1;
+            days--;
+        }
+    }
+
+    return days;
 }
 
 Date Date::operator++() {
-    this->day++;
+    if (this->day == day_count(this->month, this->year)) {
+        this->day = 1;
+        if (this->month == 12) {
+            this->month = 1;
+            this->year++;
+        } else {
+            this->month++;
+        }
+    } else {
+        this->day++;
+    }
 
     return *this;
 }
 
 Date Date::operator++(int) {
     Date d = *this;
-    this->day++;
+    ++*this;
     return d;
 }
 
 Date Date::operator--() {
-    this->day--;
+    if (this->day == 1) {
+        if (this->month == 1) {
+            this->month = 12;
+            this->year--;
+        } else {
+            this->month--;
+        }
+        this->day = day_count(this->month, this->year);
+    } else {
+        this->day--;
+    }
+
     return *this;
 }
 
 Date Date::operator--(int) {
     Date d = *this;
-    this->day--;
+    *this -= 1;
     return d;
 }
 

@@ -15,7 +15,7 @@ public:
 
     Date(long timestamp);
 
-    Date(int day, int month, int year);
+    Date(int year, int month, int day);
 
     Date operator+(int days);
 
@@ -37,7 +37,7 @@ public:
 
     bool operator>(const Date &date) const;
 
-    Date operator-(const Date &date) const;
+    int operator-(const Date &date) const;
 
     Date operator++(int);
 
