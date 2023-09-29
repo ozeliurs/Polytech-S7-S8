@@ -52,22 +52,23 @@ Date::Date(long timestamp) {
 Date::Date(int year, int month, int day) : day(day), month(month), year(year) {}
 
 Date Date::operator+(int days) {
+    Date date = *this;
+
     while (days > 0) {
-        ++*this;
+        ++date;
         days--;
     }
 
     while (days < 0) {
-        --*this;
+        --date;
         days++;
     }
 
-    return *this;
+    return date;
 }
 
 Date Date::operator-(int days) {
-    this + (-days);
-    return *this;
+    return *this + -days;
 }
 
 Date Date::operator+=(int days) {
@@ -112,13 +113,13 @@ int Date::operator-(const Date &date) const {
     int days = 0;
 
     if (d1 < d2) {
-        std::cout << d1 << " < " << d2 << std::endl;
+        // std::cout << d1 << " < " << d2 << std::endl;
         while (d1 != d2) {
             ++d1;
             days++;
         }
     } else {
-        std::cout << d1 << " > " << d2 << std::endl;
+        // std::cout << d1 << " > " << d2 << std::endl;
         while (d1 != d2) {
             --d1;
             days--;
