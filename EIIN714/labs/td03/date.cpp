@@ -20,13 +20,114 @@ Date::Date(long timestamp) {
 Date::Date(int day, int month, int year) : day(day), month(month), year(year) {}
 
 Date Date::operator+(int days) {
-    this->day += days;
+    Date d = *this;
+    
+    while (days >= 0) {
+        switch (d.month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                if (days > 31) {
+                    d.month++;
+                    days -= 31;
+                } else {
+                    d.day += days;
+                    days = 0;
+                }
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                if (days > 30) {
+                    d.month++;
+                    days -= 30;
+                } else {
+                    d.day += days;
+                    days = 0;
+                }
+                break;
+            case 2:
+                if (days > 28) {
+                    d.month++;
+                    days -= 28;
+                } else {
+                    d.day += days;
+                    days = 0;
+                }
+                break;
+            
+        }
+    }
+
+    while (days <= 0) {
+        switch (d.month) {
+            case 1:
+            case 2:
+                if (days < 0) {
+                    d.month--;
+                    days += 31;
+                } else {
+                    d.day -= days;
+                    days = 0;
+                }
+                break;
+            case 3:
+                if (days < 0) {
+                    d.month--;
+                    days += 28;
+                } else {
+                    d.day -= days;
+                    days = 0;
+                }
+                break;
+            case 4:
+            case 6:
+            case 8:
+            case 9:
+            case 11:
+                if (days < 0) {
+                    d.month--;
+                    days += 31;
+                } else {
+                    d.day -= days;
+                    days = 0;
+                }
+                break;
+            case 5:
+            case 7:
+            case 10:
+            case 12:
+                if (days < 0) {
+                    d.month--;
+                    days += 30;
+                } else {
+                    d.day -= days;
+                    days = 0;
+                }
+                break;
+        }
+    }
+
+    while (d.month > 12) {
+        d.year++;
+        d.month -= 12;
+    }
+
+    while (d.month < 1) {
+        d.year--;
+        d.month += 12;
+    }
+
     return *this;
 }
 
 Date Date::operator-(int days) {
-    this->day -= days;
-    return *this;
+    this + (-days);
 }
 
 Date Date::operator+=(int days) {
@@ -73,6 +174,7 @@ Date Date::operator-(const Date &date) const {
 
 Date Date::operator++() {
     this->day++;
+
     return *this;
 }
 
@@ -108,4 +210,8 @@ std::istream &operator>>(std::istream &is, Date &date) {
     date.day = std::stoi(input.substr(8, 2));
 
     return is;
+}
+
+bool operator==(const int &timestamp, const Date &date) {
+    return date == Date(timestamp);
 }

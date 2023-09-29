@@ -50,6 +50,8 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Date &date);
 
     friend std::istream &operator>>(std::istream &is, Date &date);
+
+    friend bool operator==(const int &timestamp, const Date &date);
 };
 
 
