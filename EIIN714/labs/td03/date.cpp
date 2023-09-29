@@ -8,9 +8,13 @@
 Date::Date() : day(1), month(1), year(1970) {}
 
 Date::Date(long timestamp) {
-    // use localtime to convert timestamp to day, month and year
+    // Look at https://en.cppreference.com/w/cpp/chrono/c/localtime
+    // And https://en.cppreference.com/w/cpp/chrono/c/tm
+    std::tm* localTimeInfo = std::localtime(&timestamp);
 
-    std::cout << "TODO" << std::endl;
+    this->day = localTimeInfo->tm_mday;
+    this->month = 1 + localTimeInfo->tm_mon;
+    this->year = 1900 + localTimeInfo->tm_year;
 }
 
 Date::Date(int day, int month, int year) : day(day), month(month), year(year) {}
