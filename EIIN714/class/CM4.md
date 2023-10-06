@@ -128,3 +128,5 @@ class Point {
 ```
 
 Le Contructeur par défaut n'est synthétisé que si on ne définit aucun constructeur.
+
+Il faut donc utiliser le constructeur par défaut pour initialiser les attributs et non pas les affecter. De même pour les valeurs constantes.
