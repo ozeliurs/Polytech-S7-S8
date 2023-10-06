@@ -29,24 +29,28 @@ bool MVector::operator==(const MVector &m) const {
 }
 
 MVector MVector::operator+=(const MVector &m) {
+    // return (*this) = (*this) + m;
+
     if (this->v.size() != m.v.size()) {
         throw MVector::Bad_Dimensions();
     }
 
     for (int i = 0; i < this->v.size(); ++i) {
-        this->v[i] += m.v[i];
+        this->v[i] += m[i];
     }
 
     return *this;
 }
 
 MVector MVector::operator-=(const MVector &m) {
+    // return (*this) = (*this) - m;
+
     if (this->v.size() != m.v.size()) {
         throw Bad_Dimensions();
     }
 
     for (int i = 0; i < this->v.size(); ++i) {
-        this->v[i] -= m.v[i];
+        this->v[i] -= m[i];
     }
 
     return *this;
