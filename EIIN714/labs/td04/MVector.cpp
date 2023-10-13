@@ -29,8 +29,14 @@ bool MVector::operator==(const MVector &m) const {
 }
 
 MVector MVector::operator+=(const MVector &m) {
-    // return (*this) = (*this) + m;
+    return (*this) = (*this) + m;
+}
 
+MVector MVector::operator-=(const MVector &m) {
+    return (*this) = (*this) - m;
+}
+
+MVector MVector::operator+(const MVector& m) {
     if (this->v.size() != m.v.size()) {
         throw MVector::Bad_Dimensions();
     }
@@ -42,11 +48,9 @@ MVector MVector::operator+=(const MVector &m) {
     return *this;
 }
 
-MVector MVector::operator-=(const MVector &m) {
-    // return (*this) = (*this) - m;
-
+MVector MVector::operator-(const MVector& m) {
     if (this->v.size() != m.v.size()) {
-        throw Bad_Dimensions();
+        throw MVector::Bad_Dimensions();
     }
 
     for (int i = 0; i < this->v.size(); ++i) {
@@ -54,20 +58,6 @@ MVector MVector::operator-=(const MVector &m) {
     }
 
     return *this;
-}
-
-MVector MVector::operator+(const MVector& m) {
-    MVector result = *this;
-    result += m;
-
-    return result;
-}
-
-MVector MVector::operator-(const MVector& m) {
-    MVector result = *this;
-    result -= m;
-
-    return result;
 }
 
 double operator*(const MVector &m1, const MVector &m2) {
