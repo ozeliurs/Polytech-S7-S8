@@ -33,6 +33,12 @@ public:
             B = 255;
         }
     }
-    friend std::istream& operator>>(std::istream& is, Pixel& pix);
-    friend std::ostream& operator<<(std::ostream& os, const Pixel& pix);
+    friend std::istream& operator>>(std::istream& is, Pixel& pix) {
+        is >> pix.R >> pix.G >> pix.B;
+        return is;
+    }
+    friend std::ostream& operator<<(std::ostream& os, const Pixel& pix) {
+        os << pix.R << " " << pix.G << " " << pix.B;
+        return os;
+    }
 };

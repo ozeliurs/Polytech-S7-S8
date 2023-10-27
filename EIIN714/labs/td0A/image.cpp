@@ -15,14 +15,11 @@ Image::Image(std::string imagePath) {
     }
 
     imageFile >> format >> nbColumns >> nbLines >> maxDepth;
-
-    int r, g, b;
-    while (imageFile >> r >> g >> b) {
-        Pixel p = Pixel();
-        p.R = r;
-        p.G = g;
-        p.B = b;
+    
+    Pixel p = Pixel();
+    while (imageFile >> p) {
         data.push_back(p);
+        p = Pixel();
     }
 }
 
@@ -44,7 +41,7 @@ std::ostream &operator<<(std::ostream &os, const Image &image) {
     os << image.maxDepth << std::endl;
 
     for (auto &pixel : image.data) {
-        os << pixel.R << " " << pixel.G << " " << pixel.B << std::endl;
+        os << pixel << std::endl;
     }
 
     return os;
