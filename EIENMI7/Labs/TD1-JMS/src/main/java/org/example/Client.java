@@ -3,9 +3,10 @@ package org.example;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
+import java.io.IOException;
 
 public class Client {
-    public static void main(String[] args) throws JMSException {
+    public static void main(String[] args) throws JMSException, IOException {
         String username = "admin";
         String password = "admin";
         String broker = "tcp://localhost:61616";
@@ -13,7 +14,7 @@ public class Client {
 
         ConnectionFactory factory = new ActiveMQConnectionFactory(username, password, broker);
         Connection connect = factory.createConnection(username, password);
-        Session sendSession = connect.createSession(false,javax.jms.Session.AUTO_ACKNOWLEDGE);
+        Session sendSession = connect.createSession(true, javax.jms.Session.AUTO_ACKNOWLEDGE);
 
         Queue sendQueue = sendSession.createQueue(sendQueueName);
 
@@ -29,6 +30,11 @@ public class Client {
             message.setStringProperty("typeMess", "important");
             producer.send(message);
             System.out.println("Sent: " + message);
+            // wait for keypress
+            System.in.read();
+            if (i % 3 == 0) {
+                sendSession.commit();
+            }
         }
     }
 }
