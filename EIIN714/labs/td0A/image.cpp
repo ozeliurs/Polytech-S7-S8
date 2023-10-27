@@ -25,3 +25,27 @@ Image::Image(std::string imagePath) {
         data.push_back(p);
     }
 }
+
+void Image::makeItGrey() {
+    for (auto &pixel : data) {
+        pixel.makeItGrey();
+    }
+}
+
+void Image::makeItBW(unsigned int threshold) {
+    for (auto &pixel : data) {
+        pixel.makeItBW(threshold);
+    }
+}
+
+std::ostream &operator<<(std::ostream &os, const Image &image) {
+    os << image.format << std::endl;
+    os << image.nbColumns << " " << image.nbLines << std::endl;
+    os << image.maxDepth << std::endl;
+
+    for (auto &pixel : image.data) {
+        os << pixel.R << " " << pixel.G << " " << pixel.B << std::endl;
+    }
+
+    return os;
+}

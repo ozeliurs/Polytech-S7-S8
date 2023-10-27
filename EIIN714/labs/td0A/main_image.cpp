@@ -19,15 +19,15 @@ int main() {
     Image mon_image(basePath + "billc.ppm"); // lecture dans un fichier
     Image mon_image_cpy = mon_image; // copie
 
-	mon_image.makeGrey(); // transforme l'image en niveaux de gris : R=G=B=moyenne des couleurs
+	mon_image.makeItGrey(); // transforme l'image en niveaux de gris : R=G=B=moyenne des couleurs
 
-    ofstream mon_image2("billc2.ppm"); // écriture dans un fichieer
+    std::ofstream mon_image2(basePath + "billc2.ppm"); // écriture dans un fichieer
     mon_image2 << mon_image;
 
-	mon_image_cpy.makeBlack_White(int threshold); // transforme l'image en Noir en Blanc :
+	mon_image_cpy.makeItBW(128); // transforme l'image en Noir en Blanc :
 	// Si moyenne des couleurs < threshold => BLANC sinon NOIR
 
-    ofstream mon_image3("billc3.ppm"); // écriture dans un fichieer
+    std::ofstream mon_image3(basePath + "billc3.ppm"); // écriture dans un fichieer
     mon_image3 << mon_image_cpy;
 
     return 0;

@@ -15,8 +15,24 @@ public:
     unsigned short int G =0;	// Green
     unsigned short int B =0;	// Blue
 
-    void makeItGrey() ;
-    void makeItBW(int threshold);
+    void makeItGrey() {
+        unsigned short int grey = (R + G + B) / 3;
+        R = grey;
+        G = grey;
+        B = grey;
+    }
+    void makeItBW(int threshold) {
+        unsigned short int grey = (R + G + B) / 3;
+        if (grey < threshold) {
+            R = 0;
+            G = 0;
+            B = 0;
+        } else {
+            R = 255;
+            G = 255;
+            B = 255;
+        }
+    }
     friend std::istream& operator>>(std::istream& is, Pixel& pix);
     friend std::ostream& operator<<(std::ostream& os, const Pixel& pix);
 };
