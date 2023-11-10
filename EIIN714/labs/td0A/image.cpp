@@ -15,7 +15,7 @@ Image::Image(std::string imagePath) {
     }
 
     imageFile >> format >> nbColumns >> nbLines >> maxDepth;
-    
+
     Pixel p = Pixel();
     while (imageFile >> p) {
         data.push_back(p);
