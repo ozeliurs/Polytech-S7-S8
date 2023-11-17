@@ -1,0 +1,4 @@
+Le code suivant compile-t-il ?
+Si oui, que ce passe-t-il pendant l'execution ?
+
+Repondre sans utiliser le compilateur !
